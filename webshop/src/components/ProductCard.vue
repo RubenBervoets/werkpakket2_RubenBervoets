@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h1>Producten</h1>
     <ul class="wrapper item-grid">
       <li v-for="product in products" :key="product.id" class="item-grid__item">

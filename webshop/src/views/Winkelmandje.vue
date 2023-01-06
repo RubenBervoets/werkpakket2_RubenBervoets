@@ -7,14 +7,13 @@
             v-for="item in cartItems"
             :key="item.id"
             class="flex-col cart-list__item">
-          <img :src="makeImagePath(item)" class="thumbnail" alt="">
+          <img class="product-image" v-bind:src="product.image" alt="Product image">
           <div class="flex-col cart-list__item__details">
             <div>
-              <p>{{ item.name }}</p>
-              <p>Size: {{ item.size }}</p>
-              <p>Color: {{ item.color }}</p>
+              <p>{{ item.title }}</p>
+              <p>Details: {{ item.tags }}</p>
             </div>
-            <p>${{ item.price }}</p>
+            <p>{{ item.price }}</p>
             <button
                 @click="removeFromCart(item.id)"
                 class="btn cart-list__btn-remove">
@@ -27,30 +26,17 @@
         <ul class="total-section-list">
           <li class="total-section__item">
             <p class="total-section__item__label">{{ cartItemsCount }} items</p>
-            <p>{{ itemsSubtotal }}</p>
           </li>
           <li class="total-section__item">
-            <p class="total-section__item__label">Shipping</p>
-            <select v-model="selectedShippingOption">
-              <option disabled value="">Please select an option</option>
-              <option
-                  v-for="option in shippingOptionsArray"
-                  :key="option.text"
-                  :value="option.rate">
-                {{ option.text }} (${{ option.rate }})
-              </option>
-            </select>
-          </li>
-          <li class="total-section__item">
-            <p class="total-section__item__label">Subtotal</p>
+            <p class="total-section__item__label">Subtotaal</p>
             <p>{{ subtotal }}</p>
           </li>
           <li class="total-section__item">
-            <p class="total-section__item__label">Tax ({{salesTaxPercentage}})</p>
-            <p>{{ salesTaxApplied }}</p>
+            <p class="total-section__item__label">btw 21%</p>
+            <p>{{ btwApplied }}</p>
           </li>
           <li class="total-section__item">
-            <p class="total-section__item__label">Total</p>
+            <p class="total-section__item__label">Totaal bedrag</p>
             <p>{{ total }}</p>
           </li>
         </ul>
@@ -66,6 +52,11 @@
 <script>
 export default {
   name: 'cart',
+  data() {
+    return {
+      salesTax: 0.21,
+    };
+  },
   computed: {
     cartItems() {
       return this.$store.getters.cartItems;
@@ -73,29 +64,14 @@ export default {
     cartItemsCount() {
       return this.cartItems.length;
     },
-    itemsSubtotal() {
+    subtotal() {
       return this.cartItems.reduce((total, item) => total + item.price, 0);
     },
-    subtotal() {
-      if (this.selectedShippingOption) {
-        return Number(this.itemsSubtotal) + Number(this.selectedShippingOption);
-      }
-      return '---';
-    },
-    salesTaxPercentage() {
-      return `${this.salesTax * 100}%`;
-    },
-    salesTaxApplied() {
-      if (this.selectedShippingOption) {
-        return (this.subtotal * this.salesTax).toFixed(2);
-      }
-      return '---';
+    btwApplied() {
+      return (this.subtotal * this.salesTax).toFixed(2);
     },
     total() {
-      if (this.selectedShippingOption) {
-        return Number(this.subtotal) + Number(this.salesTaxApplied);
-      }
-      return '---';
+      return Number(this.subtotal) + Number(this.btwApplied);
     },
   },
   methods: {

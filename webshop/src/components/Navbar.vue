@@ -5,9 +5,10 @@
     </div>
     <div class="navbar">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="productpagina.html">Product</a></li>
-        <li><a href="loginpagina.html">Login</a></li>
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/productpagina">Producten</router-link></li>
+        <li><router-link to="/login">Login</router-link></li>
+        <li><router-link to="/winkelmandje">Winkelmandje</router-link></li>
       </ul>
     </div>
   </nav>

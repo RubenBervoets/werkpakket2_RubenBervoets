@@ -1,15 +1,21 @@
 <template>
-  <nav class="wrapper">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/productpagina">Producten</router-link>
-    <router-link to="/login">Login</router-link>
-    <router-link to="/winkelmandje">Winkelmandje</router-link>
-  </nav>
+  <nav-component></nav-component>
   <router-view/>
+  <footer-component></footer-component>
 </template>
 
-<style lang="scss">
-#app {
+<script>
+import NavComponent from './components/Navbar.vue';
+import FooterComponent from './components/Footer.vue';
 
-}
+export default {
+  components: {
+    navComponent: NavComponent,
+    footerComponent: FooterComponent,
+  },
+};
+</script>
+
+<style lang="scss">
+
 </style>

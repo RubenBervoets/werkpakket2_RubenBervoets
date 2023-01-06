@@ -1,14 +1,14 @@
 <template>
   <div>
     <section class="wrapper">
-      <h2>Onze bestsellers</h2>
-      <h3>Deze horloges vallen het beste in de smaak bij onze gebruikers.</h3>
+      <h1>Onze bestsellers</h1>
+      <h2>Deze horloges vallen het beste in de smaak bij onze gebruikers.</h2>
       <ul class="featured-items">
         <li v-for="product in products" :key="product.id" class="featured-items__item">
-          <router-link :to="{ name: 'product', params: { id: product.id}}">
-            <img class="product-image" v-bind:src="product.image" alt="Product image">
-            <p class="product-title">{{ product.title }}</p>
-            <p>{{ product.price }}</p>
+          <router-link :to="{ title: 'product', params: { id: product.id}}">
+            <img class="product-image" v-bind:src="products.image" alt="Product image">
+            <p class="product-title">{{ products.title }}</p>
+            <p>{{ products.price }}</p>
           </router-link>
         </li>
       </ul>

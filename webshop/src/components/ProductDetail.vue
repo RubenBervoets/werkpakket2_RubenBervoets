@@ -1,39 +1,39 @@
 <template>
-  <div class="small-container single-product">
+  <div v-for="product in products" :key="product.id" class="small-container single-product">
     <div class="row">
       <div class="col-2">
-        <img id="productimg" src="assets/AIR-KING.png" width="100%" alt="Foto AIR-KING">
-        <div class="small-img-row">
-          <div class="small-img-col">
-            <img class="small-img" src="assets/AIR-KINGklein1.jpg" width="100%" alt="">
-          </div>
-          <div class="small-img-col">
-            <img class="small-img" src="assets/AIR-KINGklein1.jpg" width="100%" alt="">
-          </div>
-          <div class="small-img-col">
-            <img class="small-img" src="assets/AIR-KINGklein1.jpg" width="100%" alt="">
-          </div>
-          <div class="small-img-col">
-            <img class="small-img" src="assets/AIR-KINGklein1.jpg" width="100%" alt="">
-          </div>
-        </div>
+        <img class="product-image" v-bind:src="product.image" width=100% alt="Product image">
       </div>
       <div class="col-2">
         <img class="brand" src="assets/RolexLogoKleur.png">
-        <h1>AIR-KING</h1>
-        <h4>€ 7 000.00</h4>
+        <h1>{{ product.title }}</h1>
+        <h4>{{ product.price}}</h4>
         <input type="number" value="1">
         <a href="" class="btn"><span><i class="fas fa-shopping-cart"></i></span> In winkelwagen</a>
-        <p class="detail">Met zijn 40 mm kast van oysterseel-staal, zijn oyster-band met massieve schakels en oysterclasp-sluiting, en zijn kenmerkende zwarte wijzerplaat, houdt dee AIR-KING de luchtvaarttraditie van e oorspronkelijke Rolex oyster in ere.</p>
+        <p class="detail">{{ product.descriptionIntro}}</p>
+        <p class="detail">{{ product.descriptionText}}</p>
         <h3>Product details<i class="fa fa-indent"></i></h3><br>
-        <p>- Oyster<br>- 40mm<br>- Oystersteel-staal</p>
+        <p>- {{product.braceletMaterial}}<br>- {{ product.case }}<br>- {{ product.caseMaterial }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
+export default {
+  data() {
+    return {
+      products: [],
+    };
+  },
+  created() {
+    axios.get('/products.json').then(response => {
+      this.products = response.data;
+    });
+  },
+};
 </script>
 
 <style lang="scss">
@@ -87,11 +87,6 @@ $background-color_3: #000000;
   }
 }
 
-.small-img-row {
-  display: flex;
-  justify-content: space-around;
-}
-
 .col-2 {
   img {
     max-width: 100%;
@@ -107,11 +102,6 @@ $background-color_3: #000000;
   p {
     font-size: 12px;
   }
-}
-
-.small-img-col {
-  flex-basis: 24%;
-  cursor: pointer;
 }
 
 input {

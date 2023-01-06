@@ -27,8 +27,8 @@ export default new Vuex.Store({
     },
     actions: {
         addToCart({commit}, payload) {
-            commit('addToCart', payload),
-                commit('decrementProductInventory', payload)
+            commit('addToCart', payload)
+            commit('decrementProductInventory', payload)
         },
         removeFromCart({commit}, payload) {
             commit('removeFromCart', payload)

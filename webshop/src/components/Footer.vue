@@ -3,11 +3,9 @@
     <div class="footer-left">
       <img class="footer-logo" src="assets/RolexLogoWit.png" alt="Logo Rolex">
       <p class="footer-links">
-        <a href="#">Home</a>
-        |
-        <a href="#">Producten</a>
-        |
-        <a href="#">Login</a>
+        <router-link to="/">Home</router-link>
+        <router-link to="/productpagina">Producten</router-link>
+        <router-link to="/login">Login</router-link>
       </p>
       <p class="footer-copyright">Copyright © 2022 <strong>Rolex</strong> All rights reserved</p>
     </div>
